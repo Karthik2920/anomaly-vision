@@ -1,0 +1,58 @@
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.whl
+.Python
+
+# ── Virtual environments ──────────────────────────────────────────────────────
+venv/
+.venv/
+env/
+.env/
+ENV/
+
+# ── IDEs ──────────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# ── Jupyter ───────────────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb      # tracked separately via nbstripout if desired
+
+# ── Large model files (use Git LFS or upload separately) ─────────────────────
+*.h5
+*.keras
+*.pb
+*.ckpt
+*.ckpt.*
+saved_model/
+logs/
+
+# ── Dataset (too large for GitHub — download separately) ─────────────────────
+UCSD_Anomaly_Dataset.v1p2/
+*.tif
+*.tiff
+*.mp4
+*.avi
+*.mov
+
+# ── App data ──────────────────────────────────────────────────────────────────
+data.json
+Folder_Paths/
+
+# ── Misc ──────────────────────────────────────────────────────────────────────
+*.docx
+*.pdf
+training_curves.png
+roc_*.png
+anomaly_report.csv
