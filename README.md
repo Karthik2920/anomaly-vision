@@ -161,7 +161,7 @@ python scripts/evaluate.py --dataset UCSDped1 --model model_anomaly_detection.h5
 ### 1 — Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/anomaly-vision.git
+git clone https://github.com/Karthik2920/anomaly-vision.git
 cd anomaly-vision
 ```
 
@@ -178,7 +178,7 @@ pip install -r requirements.txt
 Place `model_anomaly_detection.h5` (or `model_anomaly.keras`) in the project root.
 
 > The model file is excluded from Git due to its size (~23 MB).
-> Download it from the [Releases](../../releases) page or retrain from scratch (see below).
+> Download it from the [Releases](https://github.com/Karthik2920/anomaly-vision/releases) page or retrain from scratch (see below).
 
 ### 4 — (Optional) Download the UCSD dataset
 
