@@ -1,10 +1,8 @@
-# ── AnomalyVision Docker Image ────────────────────────────────────────────────
-# Build:  docker build -t anomalyvision .
-# Run:    docker run -p 8501:8501 -v $(pwd)/model_anomaly_detection.h5:/app/model_anomaly_detection.h5 anomalyvision
+# ── AnomalyVision — Hugging Face Spaces (Docker SDK) ─────────────────────────
+# HF Spaces requires port 7860
 
 FROM python:3.10-slim
 
-# Metadata
 LABEL maintainer="AnomalyVision"
 LABEL description="Real-Time Surveillance Video Anomaly Detection"
 
@@ -20,7 +18,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /app
 
-# Install Python dependencies first (layer cache)
+# Install Python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
@@ -29,19 +27,18 @@ COPY app.py       .
 COPY src/         ./src/
 COPY scripts/     ./scripts/
 
-# Streamlit configuration
-ENV STREAMLIT_SERVER_PORT=8501
+# Streamlit configuration — port 7860 required by HF Spaces
+ENV STREAMLIT_SERVER_PORT=7860
 ENV STREAMLIT_SERVER_ADDRESS=0.0.0.0
 ENV STREAMLIT_SERVER_HEADLESS=true
 ENV STREAMLIT_BROWSER_GATHER_USAGE_STATS=false
 
-EXPOSE 8501
+EXPOSE 7860
 
-# Health-check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=30s \
-    CMD curl --fail http://localhost:8501/_stcore/health || exit 1
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s \
+    CMD curl --fail http://localhost:7860/_stcore/health || exit 1
 
 ENTRYPOINT ["streamlit", "run", "app.py", \
-            "--server.port=8501", \
+            "--server.port=7860", \
             "--server.address=0.0.0.0", \
             "--server.headless=true"]
