@@ -76,15 +76,41 @@ MODEL_PATHS  = [
     BASE_DIR / "model_anomaly_detection.h5",
     BASE_DIR / "model_anomaly.keras",
 ]
+# GitHub Releases URL — update tag if you create a new release
+MODEL_RELEASE_URL = (
+    "https://github.com/Karthik2920/anomaly-vision/releases/download"
+    "/v1.0/model_anomaly_detection.h5"
+)
+
+# ── Model auto-download ────────────────────────────────────────────────────────
+def _ensure_model() -> Optional[Path]:
+    """
+    Return path to the model file.
+    If not present locally, download it from GitHub Releases.
+    """
+    for p in MODEL_PATHS:
+        if p.exists():
+            return p
+    # Try to download
+    dest = BASE_DIR / "model_anomaly_detection.h5"
+    try:
+        import urllib.request
+        with st.spinner("Downloading model from GitHub Releases (~23 MB)…"):
+            urllib.request.urlretrieve(MODEL_RELEASE_URL, str(dest))
+        if dest.exists():
+            return dest
+    except Exception as e:
+        st.warning(f"Could not download model: {e}")
+    return None
 
 # ── Model loading (cached) ─────────────────────────────────────────────────────
 @st.cache_resource(show_spinner="Loading anomaly detection model…")
 def load_model():
     import tensorflow as tf
-    for p in MODEL_PATHS:
-        if p.exists():
-            return tf.keras.models.load_model(str(p))
-    return None
+    path = _ensure_model()
+    if path is None:
+        return None
+    return tf.keras.models.load_model(str(path))
 
 
 # ══════════════════════════════════════════════════════════════════════════════

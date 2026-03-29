@@ -1,6 +1,6 @@
-# AnomalyVision — Streamlit Cloud dependencies
+# AnomalyVision — dependencies
 
-tensorflow
+tensorflow-cpu
 numpy<2.0
 streamlit==1.32.0
 opencv-python-headless
