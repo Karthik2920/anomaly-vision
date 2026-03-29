@@ -1,9 +1,9 @@
 # AnomalyVision — Streamlit Cloud dependencies
 
-tensorflow-cpu==2.17.0
-numpy>=1.23.5,<2.0
+tensorflow
+numpy<2.0
 streamlit==1.32.0
-opencv-python-headless==4.8.1.78
-Pillow==10.2.0
-matplotlib==3.8.3
-pandas==2.1.4
+opencv-python-headless
+Pillow
+matplotlib
+pandas
