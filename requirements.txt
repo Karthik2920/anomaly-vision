@@ -1,6 +1,7 @@
 # AnomalyVision — dependencies
 
 tensorflow-cpu
+tf_keras
 numpy<2.0
 streamlit==1.32.0
 opencv-python-headless

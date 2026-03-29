@@ -106,11 +106,18 @@ def _ensure_model() -> Optional[Path]:
 # ── Model loading (cached) ─────────────────────────────────────────────────────
 @st.cache_resource(show_spinner="Loading anomaly detection model…")
 def load_model():
+    import os
+    os.environ["TF_USE_LEGACY_KERAS"] = "1"
     import tensorflow as tf
     path = _ensure_model()
     if path is None:
         return None
-    return tf.keras.models.load_model(str(path))
+    try:
+        # Try tf_keras first (best compatibility with models saved in TF2/Keras2)
+        import tf_keras
+        return tf_keras.models.load_model(str(path))
+    except Exception:
+        return tf.keras.models.load_model(str(path))
 
 
 # ══════════════════════════════════════════════════════════════════════════════
